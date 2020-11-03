@@ -10,9 +10,12 @@ source('/camp/lab/swantonc/working/albakim/MousePipeline/createFPFILTERcommand.R
 source('/camp/lab/swantonc/working/albakim/MousePipeline/createVCFforvarscancommand.R')
 source('/camp/lab/swantonc/working/albakim/MousePipeline/createSNPfilecommand.R')
 
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
 
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
 
 paddedexonbedfile <- "/camp/lab/swantonc/working/albakim/MouseImmunoediting/S0276129/twist_mouse_exome_targets_v1p1_mm10.bed"
@@ -132,6 +135,12 @@ for(i in 1:length(mice)){
     ##cat(paste("#SBATCH --exclusive", sep=""), file = shellDir, sep='\n\n', append = TRUE, fill = FALSE)
     cat(paste("#SBATCH --partition=cpu"), file = shellDir, sep='\n', append = TRUE, fill = FALSE)
     cat(paste("#SBATCH --cpus-per-task=16"), file = shellDir, sep='\n', append = TRUE, fill = FALSE)
+    cat("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/camp/apps/eb/software/GCCcore/5.4.0/lib64", file = shellDir, sep='\n', append = TRUE)
+    cat("module purge", file = shellDir, sep='\n', append = TRUE)
+    cat("module load foss/2016b", file = shellDir, sep='\n', append = TRUE)
+    cat("module load GLib/2.47.5-foss-2016b", file = shellDir, sep='\n', append = TRUE)
+    cat("module load GCCcore/5.4.0", file = shellDir, sep='\n', append = TRUE)
+
     cat("module load Perl/5.24.0-foss-2016b", file = shellDir, sep='\n', append = TRUE)
     #cat("module load scalpel/0.5.3", file = shellDir, sep='\n', append = TRUE)
     cat("module load scalpel", file = shellDir, sep='\n', append = TRUE) # loads scalpel 0.5.4 instead, fixed by Chris Hadjigeorgiou
