@@ -1,0 +1,24 @@
+1   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE05_1c/SNV/CSCE05_1c.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE05_1c/SNV/CSCE05_1c.Exome.SNV.xls   126 
+[1] "CSCE06_2d has missing .xls files"
+3   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1e/SNV/CSCE10_1e.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1e/SNV/CSCE10_1e.Exome.SNV.xls   106 
+4   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE08_2c/SNV/CSCE08_2c.Exome.SNV.xls   skip < 50  
+5   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1a/SNV/CSCE10_1a.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1a/SNV/CSCE10_1a.Exome.SNV.xls   77 
+6   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE06_2b/SNV/CSCE06_2b.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE06_2b/SNV/CSCE06_2b.Exome.SNV.xls   83 
+7   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1b/SNV/CSCE10_1b.Exome.SNV.xls   skip < 50  
+8   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE03_1e/SNV/CSCE03_1e.Exome.SNV.xls   skip < 50  
+9   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1c/SNV/CSCE10_1c.Exome.SNV.xls   skip < 50  
+10   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE06_2c/SNV/CSCE06_2c.Exome.SNV.xls   skip < 50  
+11   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE02_1b/SNV/CSCE02_1b.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE02_1b/SNV/CSCE02_1b.Exome.SNV.xls   115 
+12   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE04_1b/SNV/CSCE04_1b.Exome.SNV.xls   skip < 50  
+13   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE08_1c/SNV/CSCE08_1c.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE08_1c/SNV/CSCE08_1c.Exome.SNV.xls   118 
+14   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE07_1f/SNV/CSCE07_1f.Exome.SNV.xls   skip < 50  
+15   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE07_2a/SNV/CSCE07_2a.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE07_2a/SNV/CSCE07_2a.Exome.SNV.xls   99 
+16   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1h/SNV/CSCE10_1h.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1h/SNV/CSCE10_1h.Exome.SNV.xls   58 
+17   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_1f/SNV/CSCE10_1f.Exome.SNV.xls   skip < 50  
+18   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE08_4f/SNV/CSCE08_4f.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE08_4f/SNV/CSCE08_4f.Exome.SNV.xls   93 
+19   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE08_4b/SNV/CSCE08_4b.Exome.SNV.xls   skip < 50  
+20   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE06_4a/SNV/CSCE06_4a.Exome.SNV.xls   skip < 50  
+21   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE09_1h/SNV/CSCE09_1h.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE09_1h/SNV/CSCE09_1h.Exome.SNV.xls   56 
+22   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE09_1j/SNV/CSCE09_1j.Exome.SNV.xls   skip < 50  
+23   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_2a/SNV/CSCE10_2a.Exome.SNV.xls  plot  /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE10_2a/SNV/CSCE10_2a.Exome.SNV.xls   53 
+24   /camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/CSCE09_1e/SNV/CSCE09_1e.Exome.SNV.xls   skip < 50  
