@@ -5,8 +5,12 @@ source('/camp/lab/swantonc/working/albakim/MousePipeline/createCNVkitcommand.R')
 source('/camp/lab/swantonc/working/albakim/MousePipeline/createCNVkitcommandrefcnn.R')
 
 ## SET ALL PATHS
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+
+
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/bakkerb/DN19306/"

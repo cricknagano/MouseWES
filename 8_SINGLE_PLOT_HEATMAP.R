@@ -13,8 +13,11 @@ library('BSgenome.Mmusculus.UCSC.mm10')
 source("/camp/project/proj-tracerx-lung/tracerx/_PIPELINE/tracerx-exome-pipeline/tracerx.functions.camp.R")
 
 ##Debbie
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/bakkerb/DN19306/"
@@ -35,7 +38,7 @@ mice <- as.character(unique(mousedata$Mouse.Name))
 
 for(i in 1:length(mice)){
         m <- mice[i]
-#        print(m)
+        print(m)
         
         ##check if SNV file exists - if not print error and move on 
         SNVdir <- paste0(pathtosamfiles, m, "/SNV")
@@ -54,6 +57,10 @@ for(i in 1:length(mice)){
         ##plot heatmaps - filtered and unfiltered
         snvFile <- xlsfiles[grepl("Exome.SNV.xls", xlsfiles)]
 #        snvFile <- "output/DN19306_2/CSCE10_1c/SNV/CSCE10_1c.Exome.SNV.xls"
+        if(any(!file.exists(snvFile))){
+                print(paste0("missing varFiles for mouse: ", m))
+                next()
+	}
         dBase      <- read.delim(snvFile,header=T,sep="\t",stringsAsFactors=F);
         dBase      <- dBase[apply(dBase[,grep("VAF",colnames(dBase))],1,function(x){!any(is.na(x))}),];
 

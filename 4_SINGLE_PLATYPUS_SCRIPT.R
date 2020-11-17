@@ -5,8 +5,13 @@ library(xlsx)
 
 source('/camp/lab/swantonc/working/albakim/MousePipeline/createPLATYPUScommand.R')
 
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+
+
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
 
 
@@ -17,9 +22,9 @@ NGSIDs <- as.character(mousedata$Genomics.ID)
 dbsnp <- "/camp/lab/swantonc/working/albakim/MouseImmunoediting/S0276129/mgp.v4.snps.dbSNP_chr.vcf"
 
 ##define the mice you would like to perform platypus GL SNP calling 
-mice <- as.character(unique(mousedata$Mouse.Name))
+#mice <- as.character(unique(mousedata$Mouse.Name))
 GERMLINE <- mousedata$Sample.Name[mousedata$sample.type%in%'germline']
-
+mice <- gsub("Tail", "", GERMLINE)
 for (i in 1:length(GERMLINE)){
         germlinebam <- paste(pathtosamfiles, "/", mice[i], "/",  GERMLINE[i], "_processed.bam", sep="")
         ## create Germlinedirectory

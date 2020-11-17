@@ -20,10 +20,15 @@ source('/camp/lab/swantonc/working/bakkerb/exome_seq_mouse_pipeline/auxiliary_fu
 source('/camp/lab/swantonc/working/bakkerb/exome_seq_mouse_pipeline/auxiliary_functions/createMPILEUPfilesforbam.R')
 
 # set paths (for output etc)
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
-#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/ptest/DN19306_2/ptest_info.xlsx"
-#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/ptest/DN19306_2/ana_info.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+path          <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/fastq/"
+
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+#path <- "/camp/stp/sequencing/inputs/instruments/fastq/200720_K00102_0489_AHH73WBBXY/fastq/DN19306/"
+
+
 
 
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
@@ -34,14 +39,13 @@ paddedexonbedfile <- "/camp/lab/swantonc/working/albakim/MouseImmunoediting/S027
 ## specify NGSIDs
 NGSIDs <- mousedata$Genomics.ID
 
+
 for(i in 1:length(NGSIDs)){
         
         
         ###################################        LOCATE FASTQ FILES/CREATE ANALYSIS FOLDER        ######################################### 
         
-#        path <- "/camp/lab/swantonc/inputs/babs-data-swanton/deborah.caswell/asf/DN19306/200720_K00102_0489_AHH73WBBXY/fastq/"
-# test        path <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/fastq/"
-        path <- "/camp/stp/sequencing/inputs/instruments/fastq/200720_K00102_0489_AHH73WBBXY/fastq/DN19306/"
+
         fastqpathsformouse <- returnpathstofastqfilesformouse(path, NGSIDs[i])
         print(fastqpathsformouse)
         listoffailedmice <- NULL
@@ -50,6 +54,7 @@ for(i in 1:length(NGSIDs)){
         if(length(fastqpathsformouse)<=1){
                 print(paste("no fastq files for: ",  NGSIDs[i], sep=""))
                 listoffailedmice <- c(listoffailedmice, NGSIDs[i])
+		next()
         }else{
                 Dir <- pathtosamfiles
                 mouseDir <- paste(Dir, mouse.name, sep="")

@@ -20,9 +20,12 @@ source('/camp/lab/swantonc/working/albakim/MousePipeline/createCOVERAGEDEPTHcomm
 source('/camp/lab/swantonc/working/albakim/MousePipeline/createMPILEUPfilesforbam.R')
 
 # set path to files
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
 
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/bakkerb/DN19306/"
@@ -42,7 +45,7 @@ NGSIDs <- mousedata$Genomics.ID
 for(i in 1:length(NGSIDs)){
   
   NGSID <- NGSIDs[i]
-  mouse.ID <- mousedata$Mouse.Name[mousedata$Genomics.ID%in%NGSID]
+  mouse.ID  <- mousedata$Mouse.Name[mousedata$Genomics.ID%in%NGSID]
   sample.ID <- mousedata$Sample.Name[mousedata$Genomics.ID%in%NGSID]
   
   if(length(NGSID)<1 | length(mouse.ID)<1 | length(sample.ID)<1){
@@ -65,6 +68,7 @@ for(i in 1:length(NGSIDs)){
     }
     if(length(intermediate.files.to.delete)>=1){
       rm.command <- paste("rm", intermediate.files.to.delete)
+      print(rm.command)
       for(j in 1: length(rm.command)){
         system(rm.command[j])
       }

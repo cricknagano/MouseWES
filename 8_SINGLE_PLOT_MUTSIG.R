@@ -13,8 +13,12 @@ library('BSgenome.Mmusculus.UCSC.mm10')
 source("/camp/project/proj-tracerx-lung/tracerx/_PIPELINE/tracerx-exome-pipeline/tracerx.functions.camp.R")
 
 ##Debbie
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/bakkerb/DN19306/"
@@ -54,6 +58,11 @@ for(i in 1:length(mice)){
         ##plot heatmaps - filtered and unfiltered
         snvFile <- xlsfiles[grepl("Exome.SNV.xls", xlsfiles)]
 #         snvFile <- xlsfiles[grepl(".filtered.SNV.xls", xlsfiles)]
+        if(any(!file.exists(snvFile))){
+                print(paste0("missing varFiles for mouse: ", m))
+                next()
+	}
+
          cat(i, " ", snvFile, " ")
 
                 if(grepl("filtered", snvFile)){

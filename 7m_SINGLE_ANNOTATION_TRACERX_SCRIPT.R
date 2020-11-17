@@ -13,10 +13,14 @@ source('/camp/lab/swantonc/working/albakim/MousePipeline/createSNPfilecommand.R'
 
 
 ##Debbie
-pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+
+#pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
+
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
-tmp.dir <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/tmp/"
+tmp.dir <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/tmp/"
 
 filt.p.val.thresh <- 	0.01
 filt.min.alt.reads<-  3
@@ -52,18 +56,29 @@ mapq <- 20
 baseq <- 20
 bamreadcount.exe <- "bam-readcount"
 
+
+
+system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/camp/apps/eb/software/GCCcore/5.4.0/lib64")
+system("module purge")
+system("module load foss/2016b")
+system("module load GLib/2.47.5-foss-2016b")
+system("module load GCCcore/5.4.0")
+
 mouserefpath <- "/camp/lab/swantonc/working/albakim/MouseImmunoediting/mm10/mm10.fa"
 dbsnp <- "/camp/lab/swantonc/working/albakim/MouseImmunoediting/S0276129/mgp.v4.snps.dbSNP_chr.vcf"
 blacklist.path <- "/camp/lab/swantonc/working/albakim/MouseImmunoediting/AnnotationFiles/mm10.blacklist.bed"
 annovar.path <- '/camp/lab/swantonc/working/albakim/MouseImmunoediting/Annovar/table_annovar.pl'
 annovar.params <- "-remove -buildver mm10 -protocol refGene,cytoBand,genomicSuperDups,bed,snp142 -operation g,r,r,r,f -bedfile mm10_blacklisted.bed /camp/lab/swantonc/working/albakim/MouseImmunoediting/Annovar/mm10db/ -nastring NA"
 
-
-for(i in 1:length(mice)){
+print(paste0("Total Number of mice :",length(mice)))
+#for(i in 1:length(mice)){
+for(i in 23:length(mice)){
 
         m <- mice[i]
-        print(m)
-        
+	print(paste0(i, ": ", m))
+        if (i==2) {
+	 next
+	}
         ##if the "SNV" folder is not created - to make
         SNVdir <- paste0(pathtosamfiles, m, "/SNV")
         if(!dir.exists(SNVdir)){
@@ -76,7 +91,7 @@ for(i in 1:length(mice)){
         } 
 
         ## define mouse GL and tumour regions
-        GL <- list.files(paste0(pathtosamfiles, m), full.names = F, pattern = "ail")
+        GL <- list.files(paste0(pathtosamfiles, m), full.names = F, pattern = "Tail")
         GL <- GL[grepl(".bam$", GL)]
         GL <- gsub("_processed.bam", "", GL)
         tumour.regions <- list.files(paste0(pathtosamfiles, m), full.names = F, pattern = ".bam$")
@@ -102,7 +117,7 @@ for(i in 1:length(mice)){
         varscanPvalList.indel <- list();
         for(j in 1:length(tumour.regions)){
                 t <- tumour.regions[j]
-                print(t)
+                print(paste0("Region:", t))
                 
                 ## Varscan Somatic SNVs - fp filtered
                 varscan.SNV.file <- varFiles[grepl("VARSCAN", varFiles) & grepl(t, varFiles) & grepl("snp", varFiles)]
@@ -174,7 +189,7 @@ for(i in 1:length(mice)){
                 }
                 
         }
-        print("out")
+
         allkeys     <- sort(unique(unlist(variantList)));
         allDat      <- do.call(rbind,strsplit(allkeys,':'));
         allDat      <- data.frame(chr=allDat[,1],start=as.numeric(allDat[,2]),stop=as.numeric(allDat[,2]),ref=allDat[,3],var=allDat[,4],is_SNV=as.logical(allDat[,5]),stringsAsFactors=F);
@@ -222,7 +237,7 @@ for(i in 1:length(mice)){
         snv.readCount.files <- paste(SNVdir,"/", all.regions,'.SNV.readCount',sep='');
         if (all(file.exists(paste(snv.readCount.files,".complete",sep='')))) {
                 for (n in 1:length(snv.readCount.files)) {
-                        print(n)
+                        print(paste0("readCount.file:", snv.readCount.files[n]))
                         countDat <- read.delim(snv.readCount.files[n],header=F,sep="\t",stringsAsFactors=F,check.names=F);
                         countDat[,3] <- toupper(countDat[,3]);
                         countDat <- countDat[countDat[,3] %in% c("A","C","T","G"),];
@@ -297,16 +312,19 @@ for(i in 1:length(mice)){
         vafDat.insert <- matrix.make1(allDat.insert,all.regions)
         
         #vafDat <- refDat <- varDat <- covDat;
-        for (region in all.regions) {
+
+	print(paste0("nrow allDat.insert : ", nrow(allDat.insert) ))
+	if ( nrow(allDat.insert) > 1 ) {
+          for (region in all.regions) {
                 print(region)
                 tumour.bam  <- paste0(pathtosamfiles, m, "/", region, "_processed.bam")
                 for (n in 1:nrow(allDat.insert)) {
-                        print(n)
                         count.ins <-bam2R(file = tumour.bam,chr = allDat.insert$chr[n],start = allDat.insert$start[n],stop = allDat.insert$stop[n],q = 20,s = 2)
                         varDat.insert[n,region] <- count.ins[1,'ins'] + count.ins[1,'INS']
                         refDat.insert[n,region]<-count.ins[1,allDat.insert$ref[n]]+count.ins[1,tolower(allDat.insert$ref[n])]
                         vafDat.insert[n,region] <-(varDat.insert[n,region]/(varDat.insert[n,region]+refDat.insert[n,region]))*100
                 }
+	   }
         }
         
         covDat.insert <- varDat.insert + refDat.insert
@@ -321,17 +339,21 @@ for(i in 1:length(mice)){
         varDat.del <- matrix.make1(allDat.del,all.regions)
         refDat.del <- matrix.make1(allDat.del,all.regions)
         vafDat.del <- matrix.make1(allDat.del,all.regions)
+
+	print(paste0("nrow allDat.del : ", nrow(allDat.del) ))
+	if ( nrow(allDat.del) > 1 ) {
         
-        for (region in all.regions) {
+          for (region in all.regions) {
                 tumour.bam  <- paste0(pathtosamfiles, m, "/", region, "_processed.bam")
-                for (n in 1:nrow(allDat[del.idx,])) {
-                        allDat.del<- allDat[del.idx,]
+                for (n in 1:nrow(allDat.del)) {
+
                         count.ins <-bam2R(file = tumour.bam,chr = allDat.del$chr[n],start = allDat.del$start[n],stop = allDat.del$stop[n],q = 20,s = 2)
                         varDat.del[n,region] <- count.ins[1,'del'] + count.ins[1,'DEL']
                         refDat.del[n,region]<-count.ins[1,allDat.del$ref[n]]+count.ins[1,tolower(allDat.del$ref[n])]
                         vafDat.del[n,region] <-(varDat.del[n,region]/(varDat.del[n,region]+refDat.del[n,region]))*100
                 }
-        }
+          }
+	}
         
         covDat.del <- varDat.del + refDat.del
         
@@ -436,6 +458,7 @@ for(i in 1:length(mice)){
         system(annovar.CMD);
         annovarDat       <- read.delim(paste(annovar.out.file,".mm10_multianno.txt",sep=''),header=TRUE,sep="\t",stringsAsFactors=F);
         annovarDat$key   <- paste(annovarDat$Chr,annovarDat$Start,annovarDat$Ref,annovarDat$Alt,sep=':');
+	print("allDat <- cbind(allDat,annovarDat")
         allDat <- cbind(allDat,annovarDat[match(allDat$key,annovarDat$key),c("Func.refGene","Gene.refGene","ExonicFunc.refGene","AAChange.refGene","snp142",
                                                                              "cytoBand","genomicSuperDups")]);
         
@@ -530,6 +553,7 @@ for(i in 1:length(mice)){
         allDat.binaryMatrix[allDat.binaryMatrix>=1] <- 1;
         allDat.binaryMatrix[!allDat$Use.For.Plots,] <- 0;
         colnames(allDat.binaryMatrix) <- sub("VAF$","binary",colnames(allDat.binaryMatrix));
+	print("allDat <- cbind(allDat,allDat.binaryMatrix)")
         allDat <- cbind(allDat,allDat.binaryMatrix);
         
         ## Indicate possibility of missing mutation 
@@ -565,21 +589,26 @@ for(i in 1:length(mice)){
         }
         colnames(ambiguityDat1)<-paste0(all.regions,"_ambiguity_1")
         colnames(ambiguityDat5)<-paste0(all.regions,"_ambiguity_5")
+	print("allDat <- cbind(allDat,ambiguityDat1,ambiguityDat5)")
         allDat <- cbind(allDat,ambiguityDat1,ambiguityDat5);
         
         
         ## write out annotated SNV sheet
-        
+
         allDat <- allDat[order(allDat$max.VAF,decreasing=T),];
         ####### flag for indel ##############
         allDat$is_Indel<-FALSE
-        allDat[allDat$VarscanIndel.any%in%TRUE,]$is_Indel<-TRUE
-        
+	windel <- which(allDat$VarscanIndel.any%in%TRUE)
+	print(paste0("Number of Indel:", length(windel)))
+	if ( length(windel) > 0 ) {
+          allDat[allDat$VarscanIndel.any%in%TRUE,]$is_Indel<-TRUE
+          allDat[grepl("-", allDat$ref)%in%TRUE | grepl("-", allDat$var)%in%TRUE,]$is_Indel<-TRUE
+  	}        
         
         ####### edit the filtration for the mouse pipeline ###########
         
-        
-        allDat[grepl("-", allDat$ref)%in%TRUE | grepl("-", allDat$var)%in%TRUE,]$is_Indel<-TRUE
+
+
         
         
         filter.l <-list()
@@ -664,5 +693,6 @@ for(i in 1:length(mice)){
         allDat.filt <- allDat.filt[, grepl("Scalpel\\.", colnames(allDat.filt))%in%"FALSE" | grepl("any", colnames(allDat.filt)) ]
         
         write.table(allDat.filt,file=paste0(SNVdir,"/", m, ".Exome.filtered.SNV.xls"),col.names=TRUE,row.names=FALSE,sep="\t",quote=FALSE)
-        
-}
+   
+     
+ } #mice loop
