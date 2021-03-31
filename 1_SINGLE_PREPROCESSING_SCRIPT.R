@@ -20,9 +20,13 @@ source('/camp/lab/swantonc/working/bakkerb/exome_seq_mouse_pipeline/auxiliary_fu
 source('/camp/lab/swantonc/working/bakkerb/exome_seq_mouse_pipeline/auxiliary_functions/createMPILEUPfilesforbam.R')
 
 # set paths (for output etc)
-pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
-path          <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/fastq/"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/cell.xlsx"
+path          <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/fastq/"
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/DN19266cell.xlsx"
+#path          <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/fastq/"
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
 #mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"

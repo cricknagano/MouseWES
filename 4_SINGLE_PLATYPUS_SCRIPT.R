@@ -5,8 +5,14 @@ library(xlsx)
 
 source('/camp/lab/swantonc/working/albakim/MousePipeline/createPLATYPUScommand.R')
 
-pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/cell.xlsx"
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/DN19266cell.xlsx"
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
 
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
@@ -65,7 +71,12 @@ for (i in 1:length(GERMLINE)){
         ##cat(paste("#SBATCH --exclusive", sep=""), file = shellDir, sep='\n\n', append = TRUE, fill = FALSE)
         cat(paste("#SBATCH --partition=cpu"), file = shellDir, sep='\n', append = TRUE, fill = FALSE)
         cat(paste("#SBATCH --cpus-per-task=8"), file = shellDir, sep='\n', append = TRUE, fill = FALSE)
-        
+        cat("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/camp/apps/eb/software/GCCcore/5.4.0/lib64", file = shellDir, sep='\n', append = TRUE)
+	cat("module purge", file = shellDir, sep='\n', append = TRUE)
+        cat("module load foss/2016b", file = shellDir, sep='\n', append = TRUE)
+        cat("module load GLib/2.47.5-foss-2016b", file = shellDir, sep='\n', append = TRUE)
+        cat("module load GCCcore/5.4.0", file = shellDir, sep='\n', append = TRUE)
+
         cat("module load Biopython/1.68-foss-2016b-Python-2.7.12", file = shellDir, sep='\n', append = TRUE, fill = FALSE)
         cat("module load Platypus/0.8.1-foss-2016b-Python-2.7.12", file = shellDir, sep='\n', append = TRUE, fill = FALSE)
         cat("module load VCFtools/0.1.14-foss-2016b-Perl-5.22.1", file = shellDir, sep='\n', append = TRUE, fill = FALSE)

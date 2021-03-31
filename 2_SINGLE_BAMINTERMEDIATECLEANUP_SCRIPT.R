@@ -20,8 +20,16 @@ source('/camp/lab/swantonc/working/albakim/MousePipeline/createCOVERAGEDEPTHcomm
 source('/camp/lab/swantonc/working/albakim/MousePipeline/createMPILEUPfilesforbam.R')
 
 # set path to files
-pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/cell.xlsx"
+
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/DN19266cellCSCE10_1f.xlsx"
+
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
 #mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
@@ -77,6 +85,7 @@ for(i in 1:length(NGSIDs)){
     ###################################        RENAME THE BAM FILES TO SAMPLE IDS        #########################################
     new.intermediate.files.to.keep.names <- gsub(NGSID, sample.ID, intermediate.files.to.keep)
     mv.command <- paste("mv", intermediate.files.to.keep, new.intermediate.files.to.keep.names)
+    print(mv.command)
     for(j in 1:length(mv.command)){
         system(mv.command[j])
     }

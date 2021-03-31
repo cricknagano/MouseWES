@@ -13,8 +13,14 @@ library('BSgenome.Mmusculus.UCSC.mm10')
 source("/camp/project/proj-tracerx-lung/tracerx/_PIPELINE/tracerx-exome-pipeline/tracerx.functions.camp.R")
 
 ##Debbie
-pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/cell.xlsx"
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/DN19266cell.xlsx"
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
 #mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
@@ -39,7 +45,6 @@ mice <- as.character(unique(mousedata$Mouse.Name))
 for(i in 1:length(mice)){
         m <- mice[i]
         print(m)
-        
         ##check if SNV file exists - if not print error and move on 
         SNVdir <- paste0(pathtosamfiles, m, "/SNV")
         if(!dir.exists(SNVdir)){

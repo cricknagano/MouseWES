@@ -13,14 +13,20 @@ source('/camp/lab/swantonc/working/albakim/MousePipeline/createSNPfilecommand.R'
 
 
 ##Debbie
-pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
-mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
+pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/"
+mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN21018/cell.xlsx"
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19266/DN19266cell.xlsx"
+
+#pathtosamfiles<- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/"
+#mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/DN19306all.xlsx"
 
 #pathtosamfiles <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/"
 #mousedatapath <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_2/Debbie_WES_info.xlsx"
 
 mousedata <- read.xlsx(mousedatapath, sheetIndex = 1, stringsAsFactors=FALSE)
-tmp.dir <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/DN19306_3/tmp/"
+tmp.dir <- "/camp/lab/swantonc/working/naganoa/EgfrMouse/output/tmp/"
 
 filt.p.val.thresh <- 	0.01
 filt.min.alt.reads<-  3
@@ -71,14 +77,10 @@ annovar.path <- '/camp/lab/swantonc/working/albakim/MouseImmunoediting/Annovar/t
 annovar.params <- "-remove -buildver mm10 -protocol refGene,cytoBand,genomicSuperDups,bed,snp142 -operation g,r,r,r,f -bedfile mm10_blacklisted.bed /camp/lab/swantonc/working/albakim/MouseImmunoediting/Annovar/mm10db/ -nastring NA"
 
 print(paste0("Total Number of mice :",length(mice)))
-#for(i in 1:length(mice)){
-for(i in 23:length(mice)){
+for(i in 1:length(mice)){
 
         m <- mice[i]
 	print(paste0(i, ": ", m))
-        if (i==2) {
-	 next
-	}
         ##if the "SNV" folder is not created - to make
         SNVdir <- paste0(pathtosamfiles, m, "/SNV")
         if(!dir.exists(SNVdir)){
